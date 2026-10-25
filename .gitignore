@@ -1,0 +1,45 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Model artifacts and data
+ml/artifacts/*.keras
+ml/artifacts/*.h5
+ml/artifacts/**/saved_model/
+ml/data/
+*.tflite
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+mobile/android/
+mobile/ios/
+*.apk
+*.aab
+*.keystore
+credentials.json
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Local backend data
+backend/*.db
+backend/feedback_store/
+ml/artifacts/*.tflite
+ml/artifacts/parity_fixtures/
+

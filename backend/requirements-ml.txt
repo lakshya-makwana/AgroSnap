@@ -1,0 +1,2 @@
+# Needed only to serve a real model. Pin to the TF version recorded in model_meta.json ("tf_version").
+tensorflow>=2.16,<2.21

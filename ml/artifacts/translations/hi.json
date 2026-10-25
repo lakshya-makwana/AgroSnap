@@ -1,0 +1,35 @@
+{
+  "_review_status": "DRAFT: needs review by a Hindi-speaking agronomist before release (docs/I18N.md §3). Names not listed here fall back to English.",
+  "crops": {
+    "Apple": "सेब",
+    "Banana": "केला",
+    "Chilli": "मिर्च",
+    "Corn": "मक्का",
+    "Maize": "मक्का",
+    "Cotton": "कपास",
+    "Grape": "अंगूर",
+    "Groundnut": "मूँगफली",
+    "Guava": "अमरूद",
+    "Mango": "आम",
+    "Onion": "प्याज़",
+    "Pepper": "शिमला मिर्च",
+    "Potato": "आलू",
+    "Rice": "धान",
+    "Soybean": "सोयाबीन",
+    "Sugarcane": "गन्ना",
+    "Tea": "चाय",
+    "Tomato": "टमाटर",
+    "Wheat": "गेहूँ"
+  },
+  "diseases": {
+    "Healthy": "स्वस्थ",
+    "healthy": "स्वस्थ",
+    "Early blight": "अगेती झुलसा",
+    "Late blight": "पछेती झुलसा",
+    "Bacterial blight": "जीवाणु झुलसा",
+    "Brown spot": "भूरा धब्बा",
+    "Leaf blast": "पत्ती झोंका (ब्लास्ट)",
+    "Leaf Mold": "पत्ती फफूंद"
+  },
+  "classes": {}
+}

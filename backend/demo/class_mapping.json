@@ -1,0 +1,19 @@
+{
+  "version": "demo-12c",
+  "_note": "DEMO mapping for app development and tests only. The real mapping is exported by the v3 notebook (results_v3/class_mapping.json).",
+  "num_classes": 12,
+  "classes": [
+    {"index": 0, "class_key": "Cotton_Bacterial_blight", "crop": "Cotton", "disease": "Bacterial blight", "is_healthy": false},
+    {"index": 1, "class_key": "Cotton_Healthy", "crop": "Cotton", "disease": "Healthy", "is_healthy": true},
+    {"index": 2, "class_key": "Potato_Early_blight", "crop": "Potato", "disease": "Early blight", "is_healthy": false},
+    {"index": 3, "class_key": "Potato_Late_blight", "crop": "Potato", "disease": "Late blight", "is_healthy": false},
+    {"index": 4, "class_key": "Potato_healthy", "crop": "Potato", "disease": "Healthy", "is_healthy": true},
+    {"index": 5, "class_key": "Rice_Brown_spot", "crop": "Rice", "disease": "Brown spot", "is_healthy": false},
+    {"index": 6, "class_key": "Rice_Healthy", "crop": "Rice", "disease": "Healthy", "is_healthy": true},
+    {"index": 7, "class_key": "Rice_Leaf_blast", "crop": "Rice", "disease": "Leaf blast", "is_healthy": false},
+    {"index": 8, "class_key": "Tomato_Early_blight", "crop": "Tomato", "disease": "Early blight", "is_healthy": false},
+    {"index": 9, "class_key": "Tomato_Late_blight", "crop": "Tomato", "disease": "Late blight", "is_healthy": false},
+    {"index": 10, "class_key": "Tomato_Leaf_Mold", "crop": "Tomato", "disease": "Leaf Mold", "is_healthy": false},
+    {"index": 11, "class_key": "Tomato_healthy", "crop": "Tomato", "disease": "Healthy", "is_healthy": true}
+  ]
+}

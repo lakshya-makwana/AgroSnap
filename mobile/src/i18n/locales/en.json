@@ -1,0 +1,147 @@
+{
+  "tabs": { "home": "Home", "scan": "Scan", "weather": "Weather", "farm": "My Farm", "profile": "Profile" },
+  "common": {
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "offline": "You're offline. Some features are unavailable.",
+    "demo": "Demo mode: these results are not real. The trained model is not connected yet.",
+    "kvk": "Check with your local Krishi Vigyan Kendra (KVK) or agriculture officer before using any chemical treatment."
+  },
+  "home": {
+    "greeting": "Namaste!",
+    "subtitle": "Check your crop's health with one photo.",
+    "scanCta": "Scan a Leaf",
+    "tipsTitle": "For the best result",
+    "weatherCta": "See weather"
+  },
+  "crop": {
+    "title": "Which crop is this?",
+    "hint": "Choosing the crop makes the result more accurate.",
+    "notSure": "Not sure",
+    "loadError": "Could not load the crop list."
+  },
+  "scan": {
+    "tabCamera": "Camera",
+    "tabPhotos": "Photos",
+    "frameGuide": "Fill the frame with one leaf",
+    "capture": "Take photo",
+    "switchCamera": "Switch camera",
+    "torch": "Torch",
+    "cameraAsk": "AgroSnap needs the camera to photograph the leaf.",
+    "allowCamera": "Allow camera",
+    "cameraDenied": "Camera access is turned off.",
+    "openSettings": "Open settings",
+    "usePhotos": "Use Photos instead",
+    "cameraUnavailable": "Camera is not available on this device.",
+    "choosePhoto": "Choose a photo",
+    "photosHint": "Pick a clear photo of one leaf from your phone.",
+    "unsupportedType": "This file type isn't supported. Please choose a JPEG or PNG photo.",
+    "tooSmall": "This photo is too small. Please use a bigger photo.",
+    "tooLarge": "This photo is too large even after shrinking. Please choose another one.",
+    "processingError": "This photo could not be prepared. Please try another one."
+  },
+  "tips": {
+    "one": "Photograph one leaf, filling most of the frame.",
+    "two": "Use daylight and avoid harsh shadows.",
+    "three": "Hold the phone steady and tap to focus.",
+    "four": "Show the affected area clearly."
+  },
+  "review": {
+    "title": "Check your photo",
+    "retake": "Retake",
+    "chooseAnother": "Choose another photo",
+    "detect": "Detect Disease",
+    "detectOffline": "Detect Disease (needs internet)",
+    "checking": "Checking your photo…",
+    "cropLabel": "Crop: {{crop}}",
+    "offlineMessage": "Online disease detection is unavailable. Your photo is kept. Try again when you have a connection."
+  },
+  "result": {
+    "title": "Result",
+    "likely": "Likely: {{disease}} ({{crop}})",
+    "healthy": "Looks healthy ({{crop}})",
+    "uncertainTitle": "Unable to determine reliably",
+    "uncertainBody": "The closest matches were:",
+    "unsupportedTitle": "This photo can't be analysed",
+    "cropMismatch": "This looks more like {{crop}}. Please check the crop you chose and scan again.",
+    "reason_too_small": "The photo is too small.",
+    "reason_too_dark": "The photo is too dark.",
+    "reason_not_a_leaf_or_unsupported": "This does not look like a supported leaf.",
+    "match_high": "High match",
+    "match_medium": "Medium match",
+    "match_low": "Low match",
+    "otherPossibilities": "Other possibilities",
+    "showScore": "Show score",
+    "scorePercent": "{{value}}%",
+    "listen": "Listen",
+    "stop": "Stop",
+    "scanAgain": "Scan again",
+    "retakePhoto": "Retake photo",
+    "noGuidance": "Reviewed crop-care guidance for this result is not available yet.",
+    "speakConfident": "Likely {{disease}} on {{crop}}. {{band}}. {{kvk}}",
+    "speakHealthy": "Your {{crop}} leaf looks healthy. {{band}}.",
+    "speakUncertain": "AgroSnap could not decide reliably. Possible: {{options}}. Please take a clearer photo of one leaf in daylight.",
+    "speakUnsupported": "This photo can't be analysed. {{reason}} Please take a new photo."
+  },
+  "feedback": {
+    "question": "Was this result correct?",
+    "yes": "Yes",
+    "no": "No",
+    "unsure": "Not sure",
+    "pickCorrect": "What is the correct disease?",
+    "dontKnow": "I don't know",
+    "sharePhoto": "Share this photo to help improve AgroSnap",
+    "sharePhotoHint": "The photo is used only to make AgroSnap more accurate.",
+    "send": "Send",
+    "thanks": "Thank you! Your answer helps improve AgroSnap.",
+    "error": "Could not send your answer. Please try again."
+  },
+  "weather": {
+    "title": "Weather",
+    "useMyLocation": "Use my location",
+    "chooseCity": "Or choose a place",
+    "locationDenied": "Location permission was not given. Choose a place instead.",
+    "updated": "Updated {{time}}",
+    "notCurrent": "Not current",
+    "tooOld": "Weather unavailable. Last update was more than a day ago.",
+    "humidity": "Humidity {{value}}%",
+    "wind": "Wind {{value}} km/h",
+    "rain": "Rain {{value}} mm",
+    "rainChance": "{{value}}% rain",
+    "next24": "Next 24 hours",
+    "next7": "Next 7 days",
+    "unavailable": "Weather is unavailable right now.",
+    "pickLocation": "Choose a location to see the weather.",
+    "code": {
+      "clear": "Clear", "partly": "Partly cloudy", "cloudy": "Cloudy", "fog": "Fog",
+      "drizzle": "Drizzle", "rain": "Rain", "showers": "Rain showers", "storm": "Thunderstorm", "unknown": "—"
+    }
+  },
+  "farm": {
+    "title": "My Farm",
+    "empty": "Farm records are coming soon. You'll be able to add your farms, crops and sowing dates here."
+  },
+  "profile": {
+    "title": "Profile",
+    "language": "Language",
+    "display": "Display",
+    "highContrast": "High contrast (for bright sunlight)",
+    "largeText": "Large text",
+    "about": "About AgroSnap",
+    "aboutBody": "AgroSnap gives suggestions from a computer model, not a confirmed diagnosis.",
+    "modelVersion": "Model: {{version}}",
+    "modelSize": "Compressed model: {{size}} MB ({{times}}× smaller)",
+    "serverError": "Could not reach the AgroSnap server."
+  },
+  "errors": {
+    "IMAGE_TOO_LARGE": "The photo is too large. Please choose a smaller photo.",
+    "UNSUPPORTED_MEDIA_TYPE": "This file type isn't supported. Please choose a JPEG or PNG photo.",
+    "IMAGE_UNREADABLE": "This photo could not be read. Please choose another photo.",
+    "RATE_LIMITED": "Too many scans in a short time. Please wait a moment.",
+    "MODEL_UNAVAILABLE": "Our service is busy. Please try again.",
+    "TIMEOUT": "The connection is slow. Please try again.",
+    "NETWORK": "No connection. Your photo is kept. Try again when you're online.",
+    "SERVER": "Our service is busy. Please try again.",
+    "UNKNOWN": "Something went wrong. Please try again."
+  }
+}
