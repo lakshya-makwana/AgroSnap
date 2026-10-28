@@ -1,4 +1,5 @@
 // Typed client for the AgroSnap API (docs/API.md). The app never sends class labels; the server owns them.
+import { File } from 'expo-file-system';
 
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://10.0.2.2:8000/api/v1';
 
@@ -80,9 +81,10 @@ async function request<T>(path: string, { method = 'GET', body, headers = {}, ti
   throw new ApiError(code, message, res.status, res.status >= 500);
 }
 
-function imagePart(uri: string) {
-  // React Native's FormData accepts {uri, name, type} file descriptors; the DOM types do not know this shape.
-  return { uri, name: 'leaf.jpg', type: 'image/jpeg' } as unknown as Blob;
+function imagePart(uri: string): Blob {
+  // Expo's fetch rejects the old React Native {uri, name, type} descriptor ("Unsupported FormDataPart
+  // implementation"). An expo-file-system File is a real Blob, which it uploads as a file part.
+  return new File(uri) as unknown as Blob;
 }
 
 export const api = {
@@ -93,7 +95,7 @@ export const api = {
 
   predict(args: { uri: string; source: 'camera' | 'gallery'; crop: string | null; idempotencyKey: string; lang: string }) {
     const form = new FormData();
-    form.append('image', imagePart(args.uri));
+    form.append('image', imagePart(args.uri), 'leaf.jpg');
     form.append('source', args.source);
     if (args.crop) form.append('crop', args.crop);
     return request<Prediction>('/predictions', {
@@ -113,7 +115,7 @@ export const api = {
     if (args.correctClassId !== null) form.append('correct_class_id', String(args.correctClassId));
     if (args.crop) form.append('crop', args.crop);
     form.append('share_photo', args.sharePhoto ? 'true' : 'false');
-    if (args.sharePhoto) form.append('image', imagePart(args.uri));
+    if (args.sharePhoto) form.append('image', imagePart(args.uri), 'leaf.jpg');
     return request<{ id: string; photo_stored: boolean }>('/feedback', { method: 'POST', body: form, timeoutMs: 30000, lang: args.lang });
   },
 };
