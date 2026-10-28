@@ -28,9 +28,11 @@ function RootStack() {
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: colors.surface },
-        headerTintColor: colors.text,
-        headerTitleStyle: { fontSize: type.heading.fontSize, fontWeight: type.heading.fontWeight },
+        headerStyle: { backgroundColor: colors.background },
+        headerShadowVisible: false,
+        headerTintColor: colors.primary,
+        headerTitleStyle: { fontSize: type.heading.fontSize, fontWeight: type.heading.fontWeight, color: colors.text },
+        headerBackButtonDisplayMode: 'minimal',
         contentStyle: { backgroundColor: colors.background },
       }}
     >
