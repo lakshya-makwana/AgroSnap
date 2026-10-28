@@ -1,4 +1,6 @@
-// Design tokens from docs/UI_UX.md §1. [A5] adds a high-contrast palette and a large-text scale.
+// Design tokens (docs/UI_UX.md §1). [A5] adds a high-contrast palette and a large-text scale.
+// Standard mode separates surfaces with a hairline plus a soft shadow; high contrast keeps solid borders.
+import { StyleSheet } from 'react-native';
 
 export type Palette = {
   primary: string;
@@ -7,6 +9,7 @@ export type Palette = {
   onPrimary: string;
   background: string;
   surface: string;
+  surfaceMuted: string;
   text: string;
   textMuted: string;
   border: string;
@@ -18,20 +21,21 @@ export type Palette = {
 };
 
 export const standardPalette: Palette = {
-  primary: '#2E7D32',
-  primaryDark: '#1B5E20',
-  primaryContainer: '#E3F1E4',
+  primary: '#21532F',
+  primaryDark: '#163D22',
+  primaryContainer: '#E6EEE4',
   onPrimary: '#FFFFFF',
-  background: '#FAF8F3',
+  background: '#F5F4EF',
   surface: '#FFFFFF',
-  text: '#1C1F1A',
-  textMuted: '#5B6157',
-  border: '#E3E1DA',
-  warning: '#B26A00',
-  warningContainer: '#FFF3E0',
-  error: '#B3261E',
-  errorContainer: '#FDECEA',
-  info: '#1565C0',
+  surfaceMuted: '#ECEBE4',
+  text: '#151813',
+  textMuted: '#676C62',
+  border: 'rgba(21, 24, 19, 0.09)',
+  warning: '#8F5600',
+  warningContainer: '#FAF0DE',
+  error: '#A3271E',
+  errorContainer: '#FAE9E7',
+  info: '#24569B',
 };
 
 // For bright sunlight: pure white background, near-black text, darker accents, heavier borders.
@@ -42,6 +46,7 @@ export const highContrastPalette: Palette = {
   onPrimary: '#FFFFFF',
   background: '#FFFFFF',
   surface: '#FFFFFF',
+  surfaceMuted: '#EDEDED',
   text: '#000000',
   textMuted: '#262626',
   border: '#000000',
@@ -53,18 +58,32 @@ export const highContrastPalette: Palette = {
 };
 
 export const spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as const;
-export const radius = { card: 16, button: 12 } as const;
+export const radius = { card: 20, button: 14, control: 12, pill: 999 } as const;
+export const hairline = StyleSheet.hairlineWidth;
+
+// One soft, low shadow. Elevation stays at 1 so Android doesn't draw a heavy outline.
+export const shadow = {
+  shadowColor: '#1B2316',
+  shadowOpacity: 0.06,
+  shadowRadius: 14,
+  shadowOffset: { width: 0, height: 4 },
+  elevation: 1,
+} as const;
 
 const baseType = {
-  display: { fontSize: 28, lineHeight: 34, fontWeight: '700' as const },
-  title: { fontSize: 22, lineHeight: 28, fontWeight: '600' as const },
-  heading: { fontSize: 18, lineHeight: 24, fontWeight: '600' as const },
-  body: { fontSize: 16, lineHeight: 24, fontWeight: '400' as const },
-  label: { fontSize: 14, lineHeight: 20, fontWeight: '500' as const },
-  caption: { fontSize: 13, lineHeight: 18, fontWeight: '400' as const },
+  display: { fontSize: 30, lineHeight: 36, fontWeight: '700' as const, letterSpacing: -0.6 },
+  title: { fontSize: 22, lineHeight: 28, fontWeight: '600' as const, letterSpacing: -0.3 },
+  heading: { fontSize: 17, lineHeight: 22, fontWeight: '600' as const, letterSpacing: -0.2 },
+  body: { fontSize: 16, lineHeight: 23, fontWeight: '400' as const, letterSpacing: 0 },
+  label: { fontSize: 14, lineHeight: 20, fontWeight: '500' as const, letterSpacing: 0 },
+  caption: { fontSize: 13, lineHeight: 18, fontWeight: '400' as const, letterSpacing: 0 },
+  overline: { fontSize: 12, lineHeight: 16, fontWeight: '600' as const, letterSpacing: 0.8 },
 };
-export type TypeStyle = { fontSize: number; lineHeight: number; fontWeight: '400' | '500' | '600' | '700' };
+export type TypeStyle = {
+  fontSize: number; lineHeight: number; fontWeight: '400' | '500' | '600' | '700'; letterSpacing: number;
+};
 export type TypeScale = Record<keyof typeof baseType, TypeStyle>;
+export type TypeVariant = keyof typeof baseType;
 
 export function typeScale(large: boolean): TypeScale {
   if (!large) return baseType as TypeScale;
