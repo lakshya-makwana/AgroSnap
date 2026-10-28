@@ -57,6 +57,7 @@
     "offlineMessage": "Online disease detection is unavailable. Your photo is kept. Try again when you have a connection."
   },
   "result": {
+    "mostLikely": "Most likely",
     "title": "Result",
     "likely": "Likely: {{disease}} ({{crop}})",
     "healthy": "Looks healthy ({{crop}})",

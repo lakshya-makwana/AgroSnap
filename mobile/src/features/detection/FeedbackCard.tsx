@@ -31,7 +31,7 @@ export function FeedbackCard({ result, uri, crop }: { result: Prediction; uri: s
     }),
   });
 
-  if (send.isSuccess) return <Notice icon="heart" tone="primary" text={t('feedback.thanks')} />;
+  if (send.isSuccess) return <Notice icon="check-circle-outline" tone="primary" text={t('feedback.thanks')} />;
 
   return (
     <Card>
@@ -57,11 +57,11 @@ export function FeedbackCard({ result, uri, crop }: { result: Prediction; uri: s
         <>
           <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: share }} onPress={() => setShare((v) => !v)}
             style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', minHeight: 48, paddingTop: 8 }}>
-            <Icon name={share ? 'checkbox-marked' : 'checkbox-blank-outline'} color={colors.primary} size={28} />
+            <Icon name={share ? 'checkbox-marked' : 'checkbox-blank-outline'} color={share ? colors.primary : colors.textMuted} size={24} />
             <T v="label">{t('feedback.sharePhoto')}{'\n'}<T v="caption" muted>{t('feedback.sharePhotoHint')}</T></T>
           </Pressable>
           {send.isError && <Notice icon="alert-circle" tone="error" text={t('feedback.error')} />}
-          <Button kind="secondary" label={t('feedback.send')} icon="send" loading={send.isPending} onPress={() => send.mutate()} />
+          <Button kind="secondary" label={t('feedback.send')} icon="send-outline" loading={send.isPending} onPress={() => send.mutate()} />
         </>
       )}
     </Card>

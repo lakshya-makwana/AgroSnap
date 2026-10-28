@@ -3,18 +3,18 @@ import * as Haptics from 'expo-haptics';
 import { Image } from 'expo-image';
 import { Redirect, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
-import { Button, Card, Notice, Screen, T, useOnline } from '../components/ui';
+import { Button, Card, IconBadge, Notice, Row, Screen, T, useOnline } from '../components/ui';
 import { useCrops } from '../features/detection/useCrops';
 import { ApiError, api } from '../services/api';
 import { useScan } from '../store/scan';
-import { radius } from '../theme/tokens';
+import { radius, spacing } from '../theme/tokens';
 import { useTheme } from '../theme/useTheme';
 
 export default function Review() {
   const { t, i18n } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, elevated } = useTheme();
   const online = useOnline();
   const { uri, source, crop, idempotencyKey, setResult } = useScan();
   const crops = useCrops();
@@ -37,14 +37,24 @@ export default function Review() {
 
   return (
     <Screen>
-      <View style={{ borderRadius: radius.card, overflow: 'hidden', backgroundColor: colors.surface }}>
-        <Image source={{ uri }} contentFit="contain" style={{ width: '100%', aspectRatio: 1 }}
+      <View style={[{ borderRadius: radius.card, overflow: 'hidden', backgroundColor: colors.surface }, elevated]}>
+        <Image source={{ uri }} contentFit="cover" transition={150} style={{ width: '100%', aspectRatio: 1 }}
           accessibilityLabel={t('review.title')} />
       </View>
-      <Card tone="primary"><T v="heading">{t('review.cropLabel', { crop: cropName })}</T></Card>
+      <Card>
+        <Row style={{ flexWrap: 'nowrap' }} gap={spacing.md}>
+          <IconBadge name="sprout-outline" size={40} />
+          <View style={{ flex: 1 }}><T v="heading">{t('review.cropLabel', { crop: cropName })}</T></View>
+        </Row>
+      </Card>
       {!online && <Notice icon="wifi-off" text={t('review.offlineMessage')} />}
-      {detect.isError && <Notice icon="alert-circle" tone="error" text={t(`errors.${errorCode}`, { defaultValue: t('errors.UNKNOWN') })} />}
-      {detect.isPending && <T center muted>{t('review.checking')}</T>}
+      {detect.isError && <Notice icon="alert-circle-outline" tone="error" text={t(`errors.${errorCode}`, { defaultValue: t('errors.UNKNOWN') })} />}
+      {detect.isPending && (
+        <Row style={{ justifyContent: 'center' }}>
+          <ActivityIndicator color={colors.textMuted} size="small" />
+          <T v="label" muted>{t('review.checking')}</T>
+        </Row>
+      )}
       <Button
         label={online ? (detect.isError ? t('common.retry') : t('review.detect')) : t('review.detectOffline')}
         icon="magnify-scan"
@@ -55,7 +65,7 @@ export default function Review() {
       <Button
         kind="secondary"
         label={source === 'camera' ? t('review.retake') : t('review.chooseAnother')}
-        icon={source === 'camera' ? 'camera-retake' : 'image-multiple'}
+        icon={source === 'camera' ? 'camera-retake-outline' : 'image-multiple-outline'}
         disabled={detect.isPending}
         onPress={() => router.back()}
       />
