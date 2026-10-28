@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
-import { Button, Card, Chip, Icon, Notice, Row, Screen, T } from '../../components/ui';
+import { Button, Card, Chip, Icon, List, Notice, Row, Screen, SectionLabel, T } from '../../components/ui';
+import { spacing } from '../../theme/tokens';
 import { WeatherSummary } from '../../features/weather/WeatherSummary';
 import { CITIES, codeIcon, formatTime, useWeather } from '../../features/weather/weather';
 import { useSettings } from '../../store/settings';
@@ -43,8 +44,8 @@ export default function WeatherScreen() {
       {q.isError && !q.data && <Notice icon="cloud-alert" tone="error" text={t('weather.unavailable')} />}
       {q.data && (
         <>
+          <SectionLabel>{t('weather.next24')}</SectionLabel>
           <Card>
-            <T v="heading">{t('weather.next24')}</T>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <Row gap={20} style={{ flexWrap: 'nowrap' }}>
                 {q.data.hourly.map((h) => (
@@ -58,23 +59,28 @@ export default function WeatherScreen() {
               </Row>
             </ScrollView>
           </Card>
-          <Card>
-            <T v="heading">{t('weather.next7')}</T>
-            {q.data.daily.map((d) => (
-              <Row key={d.date} style={{ justifyContent: 'space-between', flexWrap: 'nowrap', minHeight: 44 }}>
-                <View style={{ width: 90 }}><T>{fmtDay(d.date)}</T></View>
-                <Icon name={codeIcon(d.weather_code)} color={colors.primary} />
-                <T v="label" color={colors.info}>{d.rain_chance_pct !== null ? t('weather.rainChance', { value: d.rain_chance_pct }) : ''}</T>
-                <T v="label">{Math.round(d.min_c)}° / {Math.round(d.max_c)}°</T>
-              </Row>
-            ))}
+          <SectionLabel>{t('weather.next7')}</SectionLabel>
+          <Card flush>
+            <List>
+              {q.data.daily.map((d) => (
+                <Row key={d.date} style={{ justifyContent: 'space-between', flexWrap: 'nowrap', minHeight: 52 }}>
+                  <View style={{ width: 96 }}><T>{fmtDay(d.date)}</T></View>
+                  <Icon name={codeIcon(d.weather_code)} color={colors.primary} />
+                  <View style={{ width: 72, alignItems: 'flex-end' }}>
+                    <T v="caption" color={colors.info}>{d.rain_chance_pct !== null ? t('weather.rainChance', { value: d.rain_chance_pct }) : ''}</T>
+                  </View>
+                  <T v="label"><T v="label" muted>{Math.round(d.min_c)}°</T>  {Math.round(d.max_c)}°</T>
+                </Row>
+              ))}
+            </List>
           </Card>
         </>
       )}
       <Card>
         <Button kind="secondary" icon="crosshairs-gps" label={t('weather.useMyLocation')} loading={locating} onPress={useDevice} />
         {denied && <T v="label" color={colors.warning}>{t('weather.locationDenied')}</T>}
-        <T v="label" muted>{t('weather.chooseCity')}</T>
+        <View style={{ height: spacing.xs }} />
+        <T v="overline" muted upper>{t('weather.chooseCity')}</T>
         <Row>
           {CITIES.map((c) => (
             <Chip key={c.label} label={c.label} selected={location?.label === c.label}
