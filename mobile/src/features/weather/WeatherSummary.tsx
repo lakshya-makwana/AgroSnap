@@ -1,9 +1,10 @@
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
-import { Card, Icon, Row, T } from '../../components/ui';
+import { Card, Icon, IconBadge, Pressy, Row, T } from '../../components/ui';
 import { useSettings } from '../../store/settings';
+import { spacing } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 import { codeIcon, codeKey, formatTime, STALE_MS, TOO_OLD_MS, useWeather } from './weather';
 
@@ -16,9 +17,15 @@ export function WeatherSummary({ compact }: { compact?: boolean }) {
   const open = () => router.navigate('/weather');
   if (!location) {
     return compact ? (
-      <Pressable onPress={open} accessibilityRole="button"><Card><Row>
-        <Icon name="map-marker-question" color={colors.primary} /><T>{t('weather.pickLocation')}</T>
-      </Row></Card></Pressable>
+      <Pressy onPress={open} accessibilityRole="button" accessibilityLabel={t('weather.pickLocation')}>
+        <Card>
+          <Row style={{ flexWrap: 'nowrap' }} gap={spacing.md}>
+            <IconBadge name="map-marker-outline" size={40} />
+            <View style={{ flex: 1 }}><T>{t('weather.pickLocation')}</T></View>
+            <Icon name="chevron-right" color={colors.textMuted} />
+          </Row>
+        </Card>
+      </Pressy>
     ) : null;
   }
   if (!q.data) {
@@ -29,27 +36,37 @@ export function WeatherSummary({ compact }: { compact?: boolean }) {
   const stale = age > STALE_MS || q.isError;
   const c = q.data.current;
 
-  return (
-    <Pressable onPress={compact ? open : undefined} disabled={!compact}>
-      <Card style={stale ? { opacity: 0.75 } : undefined}>
-        <Row style={{ justifyContent: 'space-between', flexWrap: 'nowrap' }}>
-          <View style={{ flex: 1 }}>
-            <T v="label" muted>{location.label}</T>
-            <T v="display">{c.temp_c !== null ? `${Math.round(c.temp_c)}°C` : '—'}</T>
-            <T>{t(`weather.code.${codeKey(c.weather_code)}`)}</T>
-          </View>
-          <Icon name={codeIcon(c.weather_code)} size={56} color={colors.primary} />
-        </Row>
-        <Row gap={16}>
-          {c.humidity_pct !== null && <T v="label">{t('weather.humidity', { value: c.humidity_pct })}</T>}
-          {c.wind_kph !== null && <T v="label">{t('weather.wind', { value: Math.round(c.wind_kph) })}</T>}
-          {c.rain_mm !== null && <T v="label">{t('weather.rain', { value: c.rain_mm })}</T>}
-        </Row>
-        <Row>
-          <T v="caption" muted>{t('weather.updated', { time: formatTime(q.data.fetched_at, i18n.language) })}</T>
-          {stale && <T v="caption" color={colors.warning}>· {t('weather.notCurrent')}</T>}
-        </Row>
-      </Card>
-    </Pressable>
+  const stats = [
+    c.humidity_pct !== null ? { icon: 'water-percent' as const, text: t('weather.humidity', { value: c.humidity_pct }) } : null,
+    c.wind_kph !== null ? { icon: 'weather-windy' as const, text: t('weather.wind', { value: Math.round(c.wind_kph) }) } : null,
+    c.rain_mm !== null ? { icon: 'weather-rainy' as const, text: t('weather.rain', { value: c.rain_mm }) } : null,
+  ].filter((s): s is NonNullable<typeof s> => s !== null);
+
+  const body = (
+    <Card style={stale ? { opacity: 0.75 } : undefined}>
+      <Row style={{ justifyContent: 'space-between', flexWrap: 'nowrap', alignItems: 'flex-start' }}>
+        <View style={{ flex: 1, gap: 2 }}>
+          <T v="overline" muted upper>{location.label}</T>
+          <T v="display">{c.temp_c !== null ? `${Math.round(c.temp_c)}°` : '—'}</T>
+          <T muted>{t(`weather.code.${codeKey(c.weather_code)}`)}</T>
+        </View>
+        <Icon name={codeIcon(c.weather_code)} size={48} color={colors.primary} />
+      </Row>
+      <Row gap={spacing.lg}>
+        {stats.map((s) => (
+          <Row key={s.icon} gap={spacing.xs}>
+            <Icon name={s.icon} size={16} color={colors.textMuted} />
+            <T v="caption" muted>{s.text}</T>
+          </Row>
+        ))}
+      </Row>
+      <Row>
+        <T v="caption" muted>{t('weather.updated', { time: formatTime(q.data.fetched_at, i18n.language) })}</T>
+        {stale && <T v="caption" color={colors.warning}>· {t('weather.notCurrent')}</T>}
+      </Row>
+    </Card>
   );
+  return compact ? (
+    <Pressy onPress={open} accessibilityRole="button" accessibilityLabel={t('weather.title')}>{body}</Pressy>
+  ) : body;
 }
