@@ -1,5 +1,6 @@
 // Typed client for the AgroSnap API (docs/API.md). The app never sends class labels; the server owns them.
 import { File } from 'expo-file-system';
+import { Platform } from 'react-native';
 
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://10.0.2.2:8000/api/v1';
 
@@ -81,9 +82,11 @@ async function request<T>(path: string, { method = 'GET', body, headers = {}, ti
   throw new ApiError(code, message, res.status, res.status >= 500);
 }
 
-function imagePart(uri: string): Blob {
+async function imagePart(uri: string): Promise<Blob> {
   // Expo's fetch rejects the old React Native {uri, name, type} descriptor ("Unsupported FormDataPart
   // implementation"). An expo-file-system File is a real Blob, which it uploads as a file part.
+  // On web the picker returns a blob/data URL instead, so read it back as a Blob.
+  if (Platform.OS === 'web') return (await fetch(uri)).blob();
   return new File(uri) as unknown as Blob;
 }
 
@@ -93,9 +96,9 @@ export const api = {
   weather: (lat: number, lon: number, lang: string) =>
     request<Weather>(`/weather?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`, { lang }),
 
-  predict(args: { uri: string; source: 'camera' | 'gallery'; crop: string | null; idempotencyKey: string; lang: string }) {
+  async predict(args: { uri: string; source: 'camera' | 'gallery'; crop: string | null; idempotencyKey: string; lang: string }) {
     const form = new FormData();
-    form.append('image', imagePart(args.uri), 'leaf.jpg');
+    form.append('image', await imagePart(args.uri), 'leaf.jpg');
     form.append('source', args.source);
     if (args.crop) form.append('crop', args.crop);
     return request<Prediction>('/predictions', {
@@ -104,7 +107,7 @@ export const api = {
     });
   },
 
-  feedback(args: {
+  async feedback(args: {
     verdict: 'correct' | 'wrong' | 'unsure'; predictedClassId: number; correctClassId: number | null;
     crop: string | null; modelVersion: string; sharePhoto: boolean; uri: string; lang: string;
   }) {
@@ -115,7 +118,7 @@ export const api = {
     if (args.correctClassId !== null) form.append('correct_class_id', String(args.correctClassId));
     if (args.crop) form.append('crop', args.crop);
     form.append('share_photo', args.sharePhoto ? 'true' : 'false');
-    if (args.sharePhoto) form.append('image', imagePart(args.uri), 'leaf.jpg');
+    if (args.sharePhoto) form.append('image', await imagePart(args.uri), 'leaf.jpg');
     return request<{ id: string; photo_stored: boolean }>('/feedback', { method: 'POST', body: form, timeoutMs: 30000, lang: args.lang });
   },
 };

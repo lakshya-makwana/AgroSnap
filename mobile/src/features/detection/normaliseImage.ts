@@ -1,4 +1,5 @@
 import { File } from 'expo-file-system';
+import { Platform } from 'react-native';
 import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 
 // docs/SCAN_FLOW.md §4. The server repeats every check; this only shrinks uploads and converts HEIC/PNG to JPEG.
@@ -28,7 +29,8 @@ export async function normaliseImage(uri: string, width: number, height: number)
       if (size) ctx.resize(size);
       const rendered = await ctx.renderAsync();
       const saved = await rendered.saveAsync({ format: SaveFormat.JPEG, compress });
-      if (new File(saved.uri).size <= MAX_BYTES) return saved.uri;
+      // Web has no file system: the browser hands us a blob URL, and the server re-checks the size anyway.
+      if (Platform.OS === 'web' || new File(saved.uri).size <= MAX_BYTES) return saved.uri;
     }
   } catch {
     throw new NormaliseError('processingError');
