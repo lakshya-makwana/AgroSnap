@@ -4,15 +4,14 @@ import * as ImagePicker from 'expo-image-picker';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Linking, Pressable, StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
-import { Button, Card, Chip, Icon, Notice, Row, Screen, T } from '../../components/ui';
+import { Button, Card, Chip, Icon, IconBadge, Notice, Pressy, Row, Screen, Segmented, Steps, T } from '../../components/ui';
 import { NormaliseError, normaliseImage } from '../../features/detection/normaliseImage';
 import { useCrops } from '../../features/detection/useCrops';
 import { useScan } from '../../store/scan';
 import { useSettings } from '../../store/settings';
 import { radius, spacing, touch } from '../../theme/tokens';
-import { useTheme } from '../../theme/useTheme';
 
 type Tab = 'camera' | 'photos';
 
@@ -23,8 +22,10 @@ function CropPicker() {
   const setLastCrop = useSettings((s) => s.setLastCrop);
   return (
     <Card>
-      <T v="heading">{t('crop.title')}</T>
-      <T v="caption" muted>{t('crop.hint')}</T>
+      <View style={{ gap: 2 }}>
+        <T v="heading">{t('crop.title')}</T>
+        <T v="caption" muted>{t('crop.hint')}</T>
+      </View>
       {crops.isError ? (
         <Row>
           <T v="label" muted>{t('crop.loadError')}</T>
@@ -44,26 +45,27 @@ function CropPicker() {
 
 function SegmentedTabs({ value, onChange }: { value: Tab; onChange: (t: Tab) => void }) {
   const { t } = useTranslation();
-  const { colors, type, borderWidth } = useTheme();
   return (
-    <View style={[styles.segment, { borderColor: colors.primary, borderWidth: borderWidth + 1 }]} accessibilityRole="tablist">
-      {(['camera', 'photos'] as const).map((tab) => {
-        const selected = value === tab;
-        return (
-          <Pressable
-            key={tab}
-            accessibilityRole="tab"
-            accessibilityState={{ selected }}
-            onPress={() => onChange(tab)}
-            style={[styles.segmentItem, { backgroundColor: selected ? colors.primary : colors.surface }]}
-          >
-            <Icon name={tab === 'camera' ? 'camera' : 'image-multiple'} color={selected ? colors.onPrimary : colors.primary} />
-            <T v="heading" color={selected ? colors.onPrimary : colors.primary}>
-              {t(tab === 'camera' ? 'scan.tabCamera' : 'scan.tabPhotos')}
-            </T>
-          </Pressable>
-        );
-      })}
+    <Segmented
+      value={value}
+      onChange={onChange}
+      options={[
+        { key: 'camera', label: t('scan.tabCamera'), icon: 'camera-outline' },
+        { key: 'photos', label: t('scan.tabPhotos'), icon: 'image-multiple-outline' },
+      ]}
+    />
+  );
+}
+
+/** Four corner brackets: frames the leaf without drawing a box over it. */
+function FrameGuide() {
+  const c = { position: 'absolute' as const, width: 34, height: 34, borderColor: '#FFFFFF' };
+  return (
+    <View style={styles.guideFrame}>
+      <View style={[c, { top: 0, left: 0, borderTopWidth: 3, borderLeftWidth: 3, borderTopLeftRadius: 20 }]} />
+      <View style={[c, { top: 0, right: 0, borderTopWidth: 3, borderRightWidth: 3, borderTopRightRadius: 20 }]} />
+      <View style={[c, { bottom: 0, left: 0, borderBottomWidth: 3, borderLeftWidth: 3, borderBottomLeftRadius: 20 }]} />
+      <View style={[c, { bottom: 0, right: 0, borderBottomWidth: 3, borderRightWidth: 3, borderBottomRightRadius: 20 }]} />
     </View>
   );
 }
@@ -79,7 +81,6 @@ function useOpenReview() {
 
 function CameraTab({ onUsePhotos, onError }: { onUsePhotos: () => void; onError: (k: string) => void }) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
   const [permission, requestPermission] = useCameraPermissions();
   const camera = useRef<CameraView>(null);
   const [ready, setReady] = useState(false);
@@ -99,7 +100,10 @@ function CameraTab({ onUsePhotos, onError }: { onUsePhotos: () => void; onError:
   if (!permission.granted) {
     return (
       <Card>
-        <T>{permission.canAskAgain ? t('scan.cameraAsk') : t('scan.cameraDenied')}</T>
+        <View style={{ alignItems: 'center', gap: spacing.md, paddingVertical: spacing.sm }}>
+          <IconBadge name="camera-outline" size={56} />
+          <T center>{permission.canAskAgain ? t('scan.cameraAsk') : t('scan.cameraDenied')}</T>
+        </View>
         {permission.canAskAgain ? (
           <Button label={t('scan.allowCamera')} icon="camera" onPress={requestPermission} />
         ) : (
@@ -125,7 +129,7 @@ function CameraTab({ onUsePhotos, onError }: { onUsePhotos: () => void; onError:
   };
 
   return (
-    <View style={[styles.cameraBox, { borderColor: colors.border }]}>
+    <View style={styles.cameraBox}>
       {active && (
         <CameraView
           ref={camera}
@@ -137,24 +141,28 @@ function CameraTab({ onUsePhotos, onError }: { onUsePhotos: () => void; onError:
         />
       )}
       <View pointerEvents="none" style={styles.guide}>
-        <View style={[styles.guideFrame, { borderColor: '#FFFFFF' }]} />
+        <FrameGuide />
         <View style={styles.guideLabel}><T v="label" color="#FFFFFF">{t('scan.frameGuide')}</T></View>
       </View>
       <View style={styles.cameraControls}>
-        <Pressable accessibilityLabel={t('scan.torch')} onPress={() => setTorch((v) => !v)} style={styles.roundSmall}>
-          <Icon name={torch ? 'flashlight' : 'flashlight-off'} color="#FFFFFF" />
-        </Pressable>
-        <Pressable
+        <Pressy accessibilityRole="button" accessibilityLabel={t('scan.torch')} accessibilityState={{ checked: torch }}
+          onPress={() => setTorch((v) => !v)} style={[styles.roundSmall, torch && { backgroundColor: '#FFFFFF' }]}>
+          <Icon name={torch ? 'flashlight' : 'flashlight-off'} color={torch ? '#000000' : '#FFFFFF'} size={22} />
+        </Pressy>
+        <Pressy
           accessibilityRole="button"
           accessibilityLabel={t('scan.capture')}
           disabled={!ready || busy}
           onPress={capture}
+          scaleTo={0.92}
           style={[styles.capture, { opacity: ready && !busy ? 1 : 0.5 }]}
-        />
-        <Pressable accessibilityLabel={t('scan.switchCamera')} onPress={() => setFacing((f) => (f === 'back' ? 'front' : 'back'))}
-          style={styles.roundSmall}>
-          <Icon name="camera-flip" color="#FFFFFF" />
-        </Pressable>
+        >
+          <View style={styles.captureInner} />
+        </Pressy>
+        <Pressy accessibilityRole="button" accessibilityLabel={t('scan.switchCamera')}
+          onPress={() => setFacing((f) => (f === 'back' ? 'front' : 'back'))} style={styles.roundSmall}>
+          <Icon name="camera-flip-outline" color="#FFFFFF" size={22} />
+        </Pressy>
       </View>
     </View>
   );
@@ -162,7 +170,6 @@ function CameraTab({ onUsePhotos, onError }: { onUsePhotos: () => void; onError:
 
 function PhotosTab({ onError }: { onError: (k: string) => void }) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
   const [busy, setBusy] = useState(false);
   const openReview = useOpenReview();
 
@@ -187,17 +194,13 @@ function PhotosTab({ onError }: { onError: (k: string) => void }) {
 
   return (
     <Card>
-      <View style={{ alignItems: 'center', paddingVertical: spacing.lg }}>
-        <Icon name="image-search" size={64} color={colors.primary} />
+      <View style={{ alignItems: 'center', gap: spacing.md, paddingTop: spacing.md }}>
+        <IconBadge name="image-search-outline" size={64} />
+        <T center muted>{t('scan.photosHint')}</T>
       </View>
-      <T center>{t('scan.photosHint')}</T>
       <Button label={t('scan.choosePhoto')} icon="image-plus" onPress={choose} loading={busy} />
-      {(['one', 'two', 'four'] as const).map((k) => (
-        <Row key={k} style={{ flexWrap: 'nowrap', alignItems: 'flex-start' }}>
-          <Icon name="check-circle" color={colors.primary} size={20} />
-          <T v="label">{t(`tips.${k}`)}</T>
-        </Row>
-      ))}
+      <View style={{ height: spacing.xs }} />
+      <Steps items={(['one', 'two', 'four'] as const).map((k) => t(`tips.${k}`))} />
     </Card>
   );
 }
@@ -225,18 +228,17 @@ export default function ScanScreen() {
 }
 
 const styles = StyleSheet.create({
-  segment: { flexDirection: 'row', borderRadius: radius.button, overflow: 'hidden' },
-  segmentItem: { flex: 1, minHeight: touch.min + 4, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: spacing.sm },
-  cameraBox: { height: 460, borderRadius: radius.card, overflow: 'hidden', backgroundColor: '#000', borderWidth: 1 },
+  cameraBox: { height: 460, borderRadius: radius.card, overflow: 'hidden', backgroundColor: '#0B0D0A' },
   guide: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, alignItems: 'center', justifyContent: 'center' },
-  guideFrame: { width: '78%', aspectRatio: 1, borderWidth: 3, borderRadius: 24, borderStyle: 'dashed' },
-  guideLabel: { position: 'absolute', top: spacing.lg, backgroundColor: 'rgba(0,0,0,0.55)', paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs, borderRadius: 8 },
-  cameraControls: { position: 'absolute', bottom: spacing.lg, left: 0, right: 0, flexDirection: 'row',
+  guideFrame: { width: '74%', aspectRatio: 1 },
+  guideLabel: { position: 'absolute', top: spacing.lg, backgroundColor: 'rgba(0,0,0,0.5)', paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs + 2, borderRadius: radius.pill },
+  cameraControls: { position: 'absolute', bottom: spacing.xl, left: 0, right: 0, flexDirection: 'row',
     justifyContent: 'space-evenly', alignItems: 'center' },
-  capture: { width: touch.capture, height: touch.capture, borderRadius: touch.capture / 2, backgroundColor: '#FFFFFF',
-    borderWidth: 6, borderColor: 'rgba(255,255,255,0.45)' },
-  roundSmall: { width: touch.min, height: touch.min, borderRadius: touch.min / 2, backgroundColor: 'rgba(0,0,0,0.5)',
+  capture: { width: touch.capture, height: touch.capture, borderRadius: touch.capture / 2, borderWidth: 4,
+    borderColor: '#FFFFFF', alignItems: 'center', justifyContent: 'center' },
+  captureInner: { width: touch.capture - 16, height: touch.capture - 16, borderRadius: (touch.capture - 16) / 2,
+    backgroundColor: '#FFFFFF' },
+  roundSmall: { width: touch.min, height: touch.min, borderRadius: touch.min / 2, backgroundColor: 'rgba(0,0,0,0.45)',
     alignItems: 'center', justifyContent: 'center' },
 });
