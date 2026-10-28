@@ -1,0 +1,62 @@
+{
+  "model_version": "agrosnap-efficientnetv2b0-20261028-acea021b",
+  "architecture": "efficientnetv2b0",
+  "sha256": "acea021b7d167ce40b7b3856f95f8cd10dd06f8eeafd45269be580d2a8d9cd91",
+  "tf_version": "2.20.0",
+  "keras_version": "3.15.1",
+  "num_classes": 94,
+  "mapping_version": "v3-94c",
+  "input": {
+    "size": [
+      224,
+      224
+    ],
+    "color": "RGB",
+    "dtype": "float32",
+    "range": [
+      0,
+      255
+    ],
+    "steps": [
+      "PIL open",
+      "ImageOps.exif_transpose",
+      "convert('RGB')",
+      "resize(256,256) LANCZOS",
+      "JPEG q95 round-trip",
+      "tf.image.resize to 224x224 bilinear (float32)",
+      "NO further scaling: preprocessing is inside the model"
+    ]
+  },
+  "inference": {
+    "tta_hflip": true
+  },
+  "calibration": {
+    "temperature": 0.7958897949408075
+  },
+  "uncertainty": {
+    "T_conf": 0.3,
+    "M_min": 0.1,
+    "target_acc_on_confident": 0.9
+  },
+  "metrics_test_no_tta": {
+    "test_acc": 0.9766233766233766,
+    "test_macro_f1": 0.9733431928485016,
+    "test_weighted_f1": 0.9764909571118014,
+    "top3": 0.9958441558441559,
+    "acc_ci": "0.970-0.983",
+    "f1_ci": "0.965-0.980"
+  },
+  "metrics_test_tta": {
+    "test_acc": 0.9755844155844156,
+    "test_macro_f1": 0.9721637735826517
+  },
+  "data": {
+    "images": 13464,
+    "split_counts": {
+      "val": 1923,
+      "test": 1925
+    },
+    "note": "val/test re-derived from the v3 notebook's grouped split (seed 42) of new_sample.zip"
+  },
+  "selection": "best validation macro F1 among: efficientnetv2b0, resnet50, mobilenetv2"
+}

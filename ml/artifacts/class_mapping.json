@@ -1,0 +1,664 @@
+{
+  "version": "v3-94c",
+  "num_classes": 94,
+  "classes": [
+    {
+      "index": 0,
+      "class_key": "Banana_Black_Pitting_or_Banana_Rust",
+      "crop": "Banana",
+      "disease": "Black Pitting or Banana Rust",
+      "is_healthy": false
+    },
+    {
+      "index": 1,
+      "class_key": "Banana_Crown_Rot",
+      "crop": "Banana",
+      "disease": "Crown Rot",
+      "is_healthy": false
+    },
+    {
+      "index": 2,
+      "class_key": "Banana_Healthy",
+      "crop": "Banana",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 3,
+      "class_key": "Banana_fungal_disease",
+      "crop": "Banana",
+      "disease": "fungal disease",
+      "is_healthy": false
+    },
+    {
+      "index": 4,
+      "class_key": "Banana_leaf_Banana_Scab_Moth",
+      "crop": "Banana",
+      "disease": "leaf Banana Scab Moth",
+      "is_healthy": false
+    },
+    {
+      "index": 5,
+      "class_key": "Banana_leaf_Black_Leaf_Streak",
+      "crop": "Banana",
+      "disease": "leaf Black Leaf Streak",
+      "is_healthy": false
+    },
+    {
+      "index": 6,
+      "class_key": "Banana_leaf_Black_Sigatoka",
+      "crop": "Banana",
+      "disease": "leaf Black Sigatoka",
+      "is_healthy": false
+    },
+    {
+      "index": 7,
+      "class_key": "Banana_leaf_Healthy",
+      "crop": "Banana",
+      "disease": "leaf Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 8,
+      "class_key": "Banana_leaf_Panama_Disease",
+      "crop": "Banana",
+      "disease": "leaf Panama Disease",
+      "is_healthy": false
+    },
+    {
+      "index": 9,
+      "class_key": "Cauliflower_Bacterial_spot_rot",
+      "crop": "Cauliflower",
+      "disease": "Bacterial spot rot",
+      "is_healthy": false
+    },
+    {
+      "index": 10,
+      "class_key": "Cauliflower_Black_Rot",
+      "crop": "Cauliflower",
+      "disease": "Black Rot",
+      "is_healthy": false
+    },
+    {
+      "index": 11,
+      "class_key": "Cauliflower_Downy_Mildew",
+      "crop": "Cauliflower",
+      "disease": "Downy Mildew",
+      "is_healthy": false
+    },
+    {
+      "index": 12,
+      "class_key": "Cauliflower_Healthy",
+      "crop": "Cauliflower",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 13,
+      "class_key": "Corn_Blight",
+      "crop": "Corn",
+      "disease": "Blight",
+      "is_healthy": false
+    },
+    {
+      "index": 14,
+      "class_key": "Corn_Common_Rust",
+      "crop": "Corn",
+      "disease": "Common Rust",
+      "is_healthy": false
+    },
+    {
+      "index": 15,
+      "class_key": "Corn_Gray_Leaf_Spot",
+      "crop": "Corn",
+      "disease": "Gray Leaf Spot",
+      "is_healthy": false
+    },
+    {
+      "index": 16,
+      "class_key": "Corn_Healthy",
+      "crop": "Corn",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 17,
+      "class_key": "Cotton_Aphids",
+      "crop": "Cotton",
+      "disease": "Aphids",
+      "is_healthy": false
+    },
+    {
+      "index": 18,
+      "class_key": "Cotton_Army_worm",
+      "crop": "Cotton",
+      "disease": "Army worm",
+      "is_healthy": false
+    },
+    {
+      "index": 19,
+      "class_key": "Cotton_Bacterial_blight",
+      "crop": "Cotton",
+      "disease": "Bacterial blight",
+      "is_healthy": false
+    },
+    {
+      "index": 20,
+      "class_key": "Cotton_Healthy",
+      "crop": "Cotton",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 21,
+      "class_key": "Guava_fruit_Anthracnose",
+      "crop": "Guava",
+      "disease": "fruit Anthracnose",
+      "is_healthy": false
+    },
+    {
+      "index": 22,
+      "class_key": "Guava_fruit_Healthy",
+      "crop": "Guava",
+      "disease": "fruit Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 23,
+      "class_key": "Guava_fruit_Scab",
+      "crop": "Guava",
+      "disease": "fruit Scab",
+      "is_healthy": false
+    },
+    {
+      "index": 24,
+      "class_key": "Guava_fruit_Styler_end_root",
+      "crop": "Guava",
+      "disease": "fruit Styler end root",
+      "is_healthy": false
+    },
+    {
+      "index": 25,
+      "class_key": "Guava_leaf_Anthracnose",
+      "crop": "Guava",
+      "disease": "leaf Anthracnose",
+      "is_healthy": false
+    },
+    {
+      "index": 26,
+      "class_key": "Guava_leaf_Canker",
+      "crop": "Guava",
+      "disease": "leaf Canker",
+      "is_healthy": false
+    },
+    {
+      "index": 27,
+      "class_key": "Guava_leaf_Dot",
+      "crop": "Guava",
+      "disease": "leaf Dot",
+      "is_healthy": false
+    },
+    {
+      "index": 28,
+      "class_key": "Guava_leaf_Healthy",
+      "crop": "Guava",
+      "disease": "leaf Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 29,
+      "class_key": "Guava_leaf_Rust",
+      "crop": "Guava",
+      "disease": "leaf Rust",
+      "is_healthy": false
+    },
+    {
+      "index": 30,
+      "class_key": "Jute_Cescospora_Leaf_Spot",
+      "crop": "Jute",
+      "disease": "Cescospora Leaf Spot",
+      "is_healthy": false
+    },
+    {
+      "index": 31,
+      "class_key": "Jute_Golden_Mosaic",
+      "crop": "Jute",
+      "disease": "Golden Mosaic",
+      "is_healthy": false
+    },
+    {
+      "index": 32,
+      "class_key": "Jute_Healthy_Leaf",
+      "crop": "Jute",
+      "disease": "Healthy Leaf",
+      "is_healthy": true
+    },
+    {
+      "index": 33,
+      "class_key": "Mango_Anthracnose",
+      "crop": "Mango",
+      "disease": "Anthracnose",
+      "is_healthy": false
+    },
+    {
+      "index": 34,
+      "class_key": "Mango_Bacterial_Canker",
+      "crop": "Mango",
+      "disease": "Bacterial Canker",
+      "is_healthy": false
+    },
+    {
+      "index": 35,
+      "class_key": "Mango_Cutting_Weevil",
+      "crop": "Mango",
+      "disease": "Cutting Weevil",
+      "is_healthy": false
+    },
+    {
+      "index": 36,
+      "class_key": "Mango_Gall_Midge",
+      "crop": "Mango",
+      "disease": "Gall Midge",
+      "is_healthy": false
+    },
+    {
+      "index": 37,
+      "class_key": "Mango_Healthy",
+      "crop": "Mango",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 38,
+      "class_key": "Mango_Powdery_Mildew",
+      "crop": "Mango",
+      "disease": "Powdery Mildew",
+      "is_healthy": false
+    },
+    {
+      "index": 39,
+      "class_key": "Mango_Sooty_Mould",
+      "crop": "Mango",
+      "disease": "Sooty Mould",
+      "is_healthy": false
+    },
+    {
+      "index": 40,
+      "class_key": "Mango_die_back",
+      "crop": "Mango",
+      "disease": "die back",
+      "is_healthy": false
+    },
+    {
+      "index": 41,
+      "class_key": "Papaya_Anthracnose",
+      "crop": "Papaya",
+      "disease": "Anthracnose",
+      "is_healthy": false
+    },
+    {
+      "index": 42,
+      "class_key": "Papaya_BacterialSpot",
+      "crop": "Papaya",
+      "disease": "BacterialSpot",
+      "is_healthy": false
+    },
+    {
+      "index": 43,
+      "class_key": "Papaya_Curl",
+      "crop": "Papaya",
+      "disease": "Curl",
+      "is_healthy": false
+    },
+    {
+      "index": 44,
+      "class_key": "Papaya_Healthy",
+      "crop": "Papaya",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 45,
+      "class_key": "Papaya_Mealybug",
+      "crop": "Papaya",
+      "disease": "Mealybug",
+      "is_healthy": false
+    },
+    {
+      "index": 46,
+      "class_key": "Papaya_Mite_disease",
+      "crop": "Papaya",
+      "disease": "Mite disease",
+      "is_healthy": false
+    },
+    {
+      "index": 47,
+      "class_key": "Papaya_Mosaic",
+      "crop": "Papaya",
+      "disease": "Mosaic",
+      "is_healthy": false
+    },
+    {
+      "index": 48,
+      "class_key": "Papaya_Ringspot",
+      "crop": "Papaya",
+      "disease": "Ringspot",
+      "is_healthy": false
+    },
+    {
+      "index": 49,
+      "class_key": "Potato_Black_Scurf",
+      "crop": "Potato",
+      "disease": "Black Scurf",
+      "is_healthy": false
+    },
+    {
+      "index": 50,
+      "class_key": "Potato_Blackleg",
+      "crop": "Potato",
+      "disease": "Blackleg",
+      "is_healthy": false
+    },
+    {
+      "index": 51,
+      "class_key": "Potato_Blackspot_Bruising",
+      "crop": "Potato",
+      "disease": "Blackspot Bruising",
+      "is_healthy": false
+    },
+    {
+      "index": 52,
+      "class_key": "Potato_Brown_Rot",
+      "crop": "Potato",
+      "disease": "Brown Rot",
+      "is_healthy": false
+    },
+    {
+      "index": 53,
+      "class_key": "Potato_Common_Scab",
+      "crop": "Potato",
+      "disease": "Common Scab",
+      "is_healthy": false
+    },
+    {
+      "index": 54,
+      "class_key": "Potato_Dry_Rot",
+      "crop": "Potato",
+      "disease": "Dry Rot",
+      "is_healthy": false
+    },
+    {
+      "index": 55,
+      "class_key": "Potato_Healthy_Potatoes",
+      "crop": "Potato",
+      "disease": "Healthy Potatoes",
+      "is_healthy": true
+    },
+    {
+      "index": 56,
+      "class_key": "Potato_Miscellaneous",
+      "crop": "Potato",
+      "disease": "Miscellaneous",
+      "is_healthy": false
+    },
+    {
+      "index": 57,
+      "class_key": "Potato_Pink_Rot",
+      "crop": "Potato",
+      "disease": "Pink Rot",
+      "is_healthy": false
+    },
+    {
+      "index": 58,
+      "class_key": "Potato_Soft_Rot",
+      "crop": "Potato",
+      "disease": "Soft Rot",
+      "is_healthy": false
+    },
+    {
+      "index": 59,
+      "class_key": "Rice_Blast",
+      "crop": "Rice",
+      "disease": "Blast",
+      "is_healthy": false
+    },
+    {
+      "index": 60,
+      "class_key": "Rice_Brownspot",
+      "crop": "Rice",
+      "disease": "Brownspot",
+      "is_healthy": false
+    },
+    {
+      "index": 61,
+      "class_key": "Rice_Tungro",
+      "crop": "Rice",
+      "disease": "Tungro",
+      "is_healthy": false
+    },
+    {
+      "index": 62,
+      "class_key": "Rice_bacterial_leaf_blight",
+      "crop": "Rice",
+      "disease": "bacterial leaf blight",
+      "is_healthy": false
+    },
+    {
+      "index": 63,
+      "class_key": "Rice_bacterial_leaf_streak",
+      "crop": "Rice",
+      "disease": "bacterial leaf streak",
+      "is_healthy": false
+    },
+    {
+      "index": 64,
+      "class_key": "Rice_bacterial_panicle_blight",
+      "crop": "Rice",
+      "disease": "bacterial panicle blight",
+      "is_healthy": false
+    },
+    {
+      "index": 65,
+      "class_key": "Rice_dead_heart",
+      "crop": "Rice",
+      "disease": "dead heart",
+      "is_healthy": false
+    },
+    {
+      "index": 66,
+      "class_key": "Rice_downy_mildew",
+      "crop": "Rice",
+      "disease": "downy mildew",
+      "is_healthy": false
+    },
+    {
+      "index": 67,
+      "class_key": "Rice_hispa",
+      "crop": "Rice",
+      "disease": "hispa",
+      "is_healthy": false
+    },
+    {
+      "index": 68,
+      "class_key": "Rice_normal",
+      "crop": "Rice",
+      "disease": "normal",
+      "is_healthy": true
+    },
+    {
+      "index": 69,
+      "class_key": "Sugarcane_Healthy",
+      "crop": "Sugarcane",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 70,
+      "class_key": "Sugarcane_Mosaic",
+      "crop": "Sugarcane",
+      "disease": "Mosaic",
+      "is_healthy": false
+    },
+    {
+      "index": 71,
+      "class_key": "Sugarcane_RedRot",
+      "crop": "Sugarcane",
+      "disease": "RedRot",
+      "is_healthy": false
+    },
+    {
+      "index": 72,
+      "class_key": "Sugarcane_Rust",
+      "crop": "Sugarcane",
+      "disease": "Rust",
+      "is_healthy": false
+    },
+    {
+      "index": 73,
+      "class_key": "Sugarcane_Yellow",
+      "crop": "Sugarcane",
+      "disease": "Yellow",
+      "is_healthy": false
+    },
+    {
+      "index": 74,
+      "class_key": "Tea_Anthracnose",
+      "crop": "Tea",
+      "disease": "Anthracnose",
+      "is_healthy": false
+    },
+    {
+      "index": 75,
+      "class_key": "Tea_algal_leaf",
+      "crop": "Tea",
+      "disease": "algal leaf",
+      "is_healthy": false
+    },
+    {
+      "index": 76,
+      "class_key": "Tea_bird_eye_spot",
+      "crop": "Tea",
+      "disease": "bird eye spot",
+      "is_healthy": false
+    },
+    {
+      "index": 77,
+      "class_key": "Tea_brown_blight",
+      "crop": "Tea",
+      "disease": "brown blight",
+      "is_healthy": false
+    },
+    {
+      "index": 78,
+      "class_key": "Tea_gray_light",
+      "crop": "Tea",
+      "disease": "gray light",
+      "is_healthy": false
+    },
+    {
+      "index": 79,
+      "class_key": "Tea_healthy",
+      "crop": "Tea",
+      "disease": "healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 80,
+      "class_key": "Tea_red_leaf_spot",
+      "crop": "Tea",
+      "disease": "red leaf spot",
+      "is_healthy": false
+    },
+    {
+      "index": 81,
+      "class_key": "Tea_white_spot",
+      "crop": "Tea",
+      "disease": "white spot",
+      "is_healthy": false
+    },
+    {
+      "index": 82,
+      "class_key": "Tomato_Bacterial_Spot",
+      "crop": "Tomato",
+      "disease": "Bacterial Spot",
+      "is_healthy": false
+    },
+    {
+      "index": 83,
+      "class_key": "Tomato_Early_Blight",
+      "crop": "Tomato",
+      "disease": "Early Blight",
+      "is_healthy": false
+    },
+    {
+      "index": 84,
+      "class_key": "Tomato_Late_Blight",
+      "crop": "Tomato",
+      "disease": "Late Blight",
+      "is_healthy": false
+    },
+    {
+      "index": 85,
+      "class_key": "Tomato_Leaf_Mold",
+      "crop": "Tomato",
+      "disease": "Leaf Mold",
+      "is_healthy": false
+    },
+    {
+      "index": 86,
+      "class_key": "Tomato_Septoria_Leaf_Spot",
+      "crop": "Tomato",
+      "disease": "Septoria Leaf Spot",
+      "is_healthy": false
+    },
+    {
+      "index": 87,
+      "class_key": "Tomato_Spider_Mites_Two-spotted_Spider_Mite",
+      "crop": "Tomato",
+      "disease": "Spider Mites Two-spotted Spider Mite",
+      "is_healthy": false
+    },
+    {
+      "index": 88,
+      "class_key": "Tomato_Target_Spot",
+      "crop": "Tomato",
+      "disease": "Target Spot",
+      "is_healthy": false
+    },
+    {
+      "index": 89,
+      "class_key": "Tomato_Tomato_Yellow_Leaf_Curl_Virus",
+      "crop": "Tomato",
+      "disease": "Tomato Yellow Leaf Curl Virus",
+      "is_healthy": false
+    },
+    {
+      "index": 90,
+      "class_key": "Tomato_healthy",
+      "crop": "Tomato",
+      "disease": "healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 91,
+      "class_key": "Wheat_Healthy",
+      "crop": "Wheat",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 92,
+      "class_key": "Wheat_septoria",
+      "crop": "Wheat",
+      "disease": "septoria",
+      "is_healthy": false
+    },
+    {
+      "index": 93,
+      "class_key": "Wheat_stripe_rust",
+      "crop": "Wheat",
+      "disease": "stripe rust",
+      "is_healthy": false
+    }
+  ]
+}
