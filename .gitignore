@@ -43,3 +43,6 @@ backend/feedback_store/
 ml/artifacts/*.tflite
 ml/artifacts/parity_fixtures/
 
+
+# Model comparison workspace (large files)
+ml/candidates/
